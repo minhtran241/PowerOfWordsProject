@@ -7,8 +7,8 @@ Power of Words is a multiplatform application designed to scan users' journal en
 
 <h2>Progress : </h2>
 <p>Started page and button working : </br>
-  <img src="pic/getstart.png" width="50" height="70"></br>
+  <img src="pic/getstart.png" width="100" height="400"></br>
   Demo Animation :</br>
-  <img src="pic/demo.gif" width="50" height="70"></br>
+  <img src="pic/demo.gif" width="100" height="400"></br>
 </p>
 <p>Need to do Login Resigster page </p>
