@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,19 +28,35 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String title = "Welcome\nTo\nPower of Words";
+  String second =
+      "Your Number One Personal Journey.Where every one of your thoughts is cared for properly.\n\nJoin us to improve your mental wellbeing!";
+  double topMargin = 90;
+  double loginWidth = 0;
+  double registerWidth = 0;
+  double nextWidth = 0;
   int _pageState = 0;
   double windowHeight = 0;
   double windowWidth = 0;
   double _loginYOffset = 0;
   double _RegisterYOffset = 0;
   double _nextYOffset = 0;
+  double _loginXOffset = 0;
+  double _registerXOffset = 0;
+  double nextXOffset = 0;
   double _loginHeight = 0;
   double _registerHeight = 0;
   double _nextHeight = 0;
+  double loginOpacity = 1;
+  double registerOpacity = 1;
   var purple = Color(0xFF3B1B6A);
   var notPurple = Color(0xFFD5D4EA);
+
   @override
   Widget build(BuildContext context) {
+    _loginYOffset = windowHeight;
+    _RegisterYOffset = windowHeight;
+    _nextYOffset = windowHeight;
     windowHeight = MediaQuery.of(context).size.height;
     windowWidth = MediaQuery.of(context).size.width;
     _loginHeight = windowHeight - 200;
@@ -47,19 +64,56 @@ class _LoginPageState extends State<LoginPage> {
     _nextHeight = windowHeight - 360;
     switch (_pageState) {
       case 0:
+        title = "Welcome\nTo\nPower of Words";
+        second =
+            "Your Number One Personal Journey.Where every one of your thoughts is cared for properly.\n\nJoin us to improve your mental wellbeing!";
+
+        topMargin = 90;
         _loginYOffset = windowHeight;
+        _RegisterYOffset = windowHeight;
+        _nextYOffset = windowHeight;
         break;
       case 1:
-        _loginYOffset = 220;
+        title = "Welcome\nTo\nPower of Words";
+        second = "";
+        topMargin = 90.4;
+        loginOpacity = 1;
+        _loginXOffset = 0;
+        loginWidth = windowWidth;
+        _loginYOffset = 250;
+        _RegisterYOffset = windowHeight;
+        _nextYOffset = windowHeight;
         break;
       case 2:
-        _loginYOffset = 340;
-        _RegisterYOffset = 360;
+        title = "Create New Account";
+        second = "";
+        topMargin = 150.5;
+        loginOpacity = 0.7;
+        registerOpacity = 1;
+        _loginXOffset = 20;
+        _registerXOffset = 0;
+        loginWidth = windowWidth - 40;
+        registerWidth = windowWidth;
+        _loginYOffset = 230;
+        _RegisterYOffset = 250;
+        _nextYOffset = windowHeight;
         break;
       case 3:
-        _loginYOffset = 320;
-        _RegisterYOffset = 340;
-        _nextYOffset = 360;
+        title = "Let's finish \nsetting up your account!";
+        second = "";
+
+        topMargin = 90.6;
+        loginOpacity = 0.5;
+        registerOpacity = 0.7;
+        _loginXOffset = 40;
+        _registerXOffset = 20;
+        nextXOffset = 0;
+        loginWidth = windowWidth - (2 * _loginXOffset);
+        registerWidth = windowWidth - (2 * _registerXOffset);
+        nextWidth = windowWidth;
+        _loginYOffset = 210;
+        _RegisterYOffset = 230;
+        _nextYOffset = 250;
     }
     return Stack(
       children: <Widget>[
@@ -72,23 +126,29 @@ class _LoginPageState extends State<LoginPage> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    _pageState = 0;
+                    if (_pageState > 0) {
+                      _pageState--;
+                    } else {
+                      _pageState = 0;
+                    }
                   });
                 },
                 //title container
-                child: Container(
-                  margin: const EdgeInsets.only(top: 100),
+                child: AnimatedContainer(
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  duration: Duration(milliseconds: 1000),
+                  margin: EdgeInsets.only(top: topMargin),
                   child: Column(
                     children: <Widget>[
                       Text(
-                        "Welcome\nTo\nPower of Words",
+                        title,
                         style: TextStyle(fontSize: 30, color: purple),
                         textAlign: TextAlign.center,
                       ),
                       Container(
-                          margin: const EdgeInsets.fromLTRB(40, 30, 40, 10),
+                          margin: const EdgeInsets.fromLTRB(40, 50, 40, 10),
                           child: Text(
-                            "Your Number One Personal Journey.Where every one of your thoughts is cared for properly.\n\nJoin us to improve your mental wellbeing!",
+                            second,
                             style: TextStyle(fontSize: 15, color: purple),
                             textAlign: TextAlign.center,
                           )),
@@ -111,39 +171,188 @@ class _LoginPageState extends State<LoginPage> {
                         });
                       },
                       child: Container(
-                        margin: const EdgeInsets.fromLTRB(30, 0, 20, 30),
+                        margin: const EdgeInsets.fromLTRB(30, 0, 30, 50),
                         padding: const EdgeInsets.all(20),
                         width: double.infinity,
                         decoration: BoxDecoration(
+                            border: Border.all(color: purple, width: 3),
                             color: notPurple,
                             borderRadius: BorderRadius.circular(20)),
                         child: Text(
                           "Get Start",
-                          style: TextStyle(color: purple, fontSize: 20),
+                          style: TextStyle(color: purple, fontSize: 30),
                           textAlign: TextAlign.center,
                         ),
                       ))),
             ],
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              _pageState = 2;
-            });
-          },
-          child: AnimatedContainer(
-            curve: Curves.fastLinearToSlowEaseIn,
-            duration: const Duration(milliseconds: 1000),
-            transform: Matrix4.translationValues(0, _loginYOffset, 1),
-            decoration: BoxDecoration(
-                color: notPurple,
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20))),
+
+        //login
+        AnimatedContainer(
+          width: loginWidth,
+          padding: EdgeInsets.all(40),
+          curve: Curves.fastLinearToSlowEaseIn,
+          duration: const Duration(milliseconds: 1000),
+          transform: Matrix4.translationValues(_loginXOffset, _loginYOffset, 1),
+          decoration: BoxDecoration(
+              color: notPurple.withOpacity(loginOpacity),
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(25), topRight: Radius.circular(25))),
+          child: Column(
+            children: <Widget>[
+              Column(children: <Widget>[
+                Text(
+                  "Login to Continue",
+                  style: TextStyle(color: purple, fontSize: 30),
+                ),
+              ]),
+              Container(
+                margin: EdgeInsets.only(top: 30, bottom: 100),
+                child: Column(children: <Widget>[
+                  InputBox(btnText: "Email"),
+                  InputBox(btnText: "Password")
+                ]),
+              ),
+              PrimaryButton(btnText: 'Login'),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _pageState = 2;
+                  });
+                },
+                child: PrimaryButton(btnText: 'Sign Up'),
+              )
+            ],
+          ),
+        ),
+
+        //register
+        AnimatedContainer(
+          width: registerWidth,
+          padding: EdgeInsets.all(40),
+          curve: Curves.fastLinearToSlowEaseIn,
+          duration: const Duration(milliseconds: 1000),
+          transform:
+              Matrix4.translationValues(_registerXOffset, _RegisterYOffset, 1),
+          decoration: BoxDecoration(
+              color: notPurple.withOpacity(registerOpacity),
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(25), topRight: Radius.circular(25))),
+          child: Column(children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(bottom: 160),
+              child: Column(
+                children: <Widget>[
+                  InputBox(btnText: "Email Address"),
+                  InputBox(btnText: "Password"),
+                  InputBox(btnText: "Date of Birth"),
+                ],
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  _pageState = 3;
+                });
+              },
+              child: PrimaryButton(btnText: "Continue"),
+            )
+          ]),
+        ),
+
+        //next
+        AnimatedContainer(
+          width: nextWidth,
+          padding: EdgeInsets.all(40),
+          curve: Curves.fastLinearToSlowEaseIn,
+          duration: const Duration(milliseconds: 1000),
+          transform: Matrix4.translationValues(nextXOffset, _nextYOffset, 1),
+          decoration: BoxDecoration(
+              color: notPurple,
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(25), topRight: Radius.circular(25))),
+          child: Column(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(bottom: 70),
+                child: Column(
+                  children: <Widget>[
+                    InputBox(btnText: "First Name"),
+                    InputBox(btnText: "Last Name"),
+                    InputBox(btnText: "Gender"),
+                    InputBox(btnText: "Race"),
+                  ],
+                ),
+              ),
+              PrimaryButton(btnText: "Finish")
+            ],
           ),
         ),
       ],
     );
+  }
+}
+
+class InputBox extends StatefulWidget {
+  final String btnText;
+  InputBox({required this.btnText});
+  @override
+  _InputBoxState createState() => _InputBoxState();
+}
+
+class _InputBoxState extends State<InputBox> {
+  var purple = Color(0xFF3B1B6A);
+  var notPurple = Color.fromRGBO(213, 212, 234, 1);
+  var purpleBorder = Color.fromRGBO(202, 201, 229, 1);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.only(top: 20),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(width: 2.5, color: purpleBorder),
+            borderRadius: BorderRadius.circular(15)),
+        child: Container(
+            child: TextField(
+          textAlign: TextAlign.center,
+          decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: widget.btnText,
+              hintStyle: TextStyle(
+                  fontSize: 30, color: Color.fromRGBO(226, 225, 240, 1)),
+              contentPadding: EdgeInsets.only(top: 15, bottom: 15)),
+        )));
+  }
+}
+
+class PrimaryButton extends StatefulWidget {
+  final String btnText;
+  PrimaryButton({required this.btnText});
+  @override
+  _PrimaryButtonState createState() => _PrimaryButtonState();
+}
+
+class _PrimaryButtonState extends State<PrimaryButton> {
+  @override
+  var purple = Color(0xFF3B1B6A);
+  var notPurple = Color(0xFFD5D4EA);
+  Widget build(BuildContext context) {
+    return Container(
+        decoration: BoxDecoration(
+          color: notPurple,
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: purple, width: 2.5),
+        ),
+        padding: EdgeInsets.all(15),
+        margin: EdgeInsets.only(bottom: 10, top: 10),
+        child: Center(
+            child: Text(
+          widget.btnText,
+          style: TextStyle(
+            color: purple,
+            fontSize: 30,
+          ),
+        )));
   }
 }
