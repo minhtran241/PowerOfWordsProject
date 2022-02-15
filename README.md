@@ -1,5 +1,5 @@
 Power of Words is a multiplatform application designed to scan users' journal entries for common phrases or words that are related to commmon mental health issues. This is a class project for CIS 350-01.
-<2>Power of Words</h2>
+<h2>Power of Words</h2>
 <p align="center">
  <img src="pic/getstart.png" width="300" height="600"></p>
 <h2> To do stuff </h2>
