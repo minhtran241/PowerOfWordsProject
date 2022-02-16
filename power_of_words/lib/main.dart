@@ -72,6 +72,10 @@ class _LoginPageState extends State<LoginPage> {
         _loginYOffset = windowHeight;
         _RegisterYOffset = windowHeight;
         _nextYOffset = windowHeight;
+        loginWidth = windowWidth;
+        registerWidth = windowWidth;
+        nextWidth = windowWidth;
+
         break;
       case 1:
         title = "Welcome\nTo\nPower of Words";
