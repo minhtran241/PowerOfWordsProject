@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,6 +50,7 @@ class _LoginPageState extends State<LoginPage> {
   double registerOpacity = 1;
   var purple = Color(0xFF3B1B6A);
   var notPurple = Color(0xFFD5D4EA);
+  bool isKeyboardVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -83,21 +83,28 @@ class _LoginPageState extends State<LoginPage> {
         topMargin = 90.4;
         loginOpacity = 1;
         _loginXOffset = 0;
+
         loginWidth = windowWidth;
-        _loginYOffset = 250;
+
+        _loginYOffset = isKeyboardVisible ? 0 : 250;
         _RegisterYOffset = windowHeight;
         _nextYOffset = windowHeight;
         break;
       case 2:
         title = "Create New Account";
         second = "";
+
         topMargin = 150.5;
         loginOpacity = 0.7;
         registerOpacity = 1;
+
         _loginXOffset = 20;
         _registerXOffset = 0;
+
         loginWidth = windowWidth - 40;
+
         registerWidth = windowWidth;
+
         _loginYOffset = 230;
         _RegisterYOffset = 250;
         _nextYOffset = windowHeight;
@@ -109,12 +116,17 @@ class _LoginPageState extends State<LoginPage> {
         topMargin = 90.6;
         loginOpacity = 0.5;
         registerOpacity = 0.7;
+
         _loginXOffset = 40;
         _registerXOffset = 20;
         nextXOffset = 0;
+
         loginWidth = windowWidth - (2 * _loginXOffset);
+
         registerWidth = windowWidth - (2 * _registerXOffset);
+
         nextWidth = windowWidth;
+
         _loginYOffset = 210;
         _RegisterYOffset = 230;
         _nextYOffset = 250;
@@ -215,18 +227,21 @@ class _LoginPageState extends State<LoginPage> {
                 margin: EdgeInsets.only(top: 30, bottom: 100),
                 child: Column(children: <Widget>[
                   InputBox(btnText: "Email"),
-                  InputBox(btnText: "Password")
+                  InputBox(btnText: "Password"),
                 ]),
               ),
-              PrimaryButton(btnText: 'Login'),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _pageState = 2;
-                  });
-                },
-                child: PrimaryButton(btnText: 'Sign Up'),
-              )
+              Flexible(
+                  child: Column(children: <Widget>[
+                PrimaryButton(btnText: 'Login'),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _pageState = 2;
+                    });
+                  },
+                  child: PrimaryButton(btnText: 'Sign Up'),
+                )
+              ]))
             ],
           ),
         ),
