@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "999186704867",
+    "firebase_url": "https://pow-350-default-rtdb.firebaseio.com",
+    "project_id": "pow-350",
+    "storage_bucket": "pow-350.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:999186704867:android:b57d1ec30b32983417d8d6",
+        "android_client_info": {
+          "package_name": "com.example.power_of_words"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "999186704867-pgh3dsbfbemvqo84lvrd3j9bufmosd8j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUGSGcdDR7QNS2RwVy9FyBeJn8mdMurVg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "999186704867-pgh3dsbfbemvqo84lvrd3j9bufmosd8j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "999186704867-6hh1uephrv4g1moh0j56q16d7k9d4v6r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.powerOfWords"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
