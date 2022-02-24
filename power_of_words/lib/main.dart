@@ -133,24 +133,24 @@ class _LoginPageState extends State<LoginPage> {
     }
     return Stack(
       children: <Widget>[
-        AnimatedContainer(
-          curve: Curves.fastLinearToSlowEaseIn,
-          duration: Duration(milliseconds: 1000),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    if (_pageState > 0) {
-                      _pageState--;
-                    } else {
-                      _pageState = 0;
-                    }
-                  });
-                },
-                //title container
-                child: AnimatedContainer(
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              if (_pageState > 0) {
+                _pageState--;
+              } else {
+                _pageState = 0;
+              }
+            });
+          },
+          child: AnimatedContainer(
+            width: windowWidth,
+            curve: Curves.fastLinearToSlowEaseIn,
+            duration: Duration(milliseconds: 1000),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                AnimatedContainer(
                   curve: Curves.fastLinearToSlowEaseIn,
                   duration: Duration(milliseconds: 1000),
                   margin: EdgeInsets.only(top: topMargin),
@@ -171,36 +171,37 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-              ),
-              //picture container
-              Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Center(
-                    child: Image.asset('pic/Frame1.png'),
-                  )),
-              //button container
-              Container(
-                  child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _pageState = 1;
-                        });
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.fromLTRB(30, 0, 30, 50),
-                        padding: const EdgeInsets.all(20),
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: purple, width: 3),
-                            color: notPurple,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Text(
-                          "Get Start",
-                          style: TextStyle(color: purple, fontSize: 30),
-                          textAlign: TextAlign.center,
-                        ),
-                      ))),
-            ],
+
+                //picture container
+                Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Center(
+                      child: Image.asset('pic/Frame1.png'),
+                    )),
+                //button container
+                Container(
+                    child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _pageState = 1;
+                          });
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.fromLTRB(30, 0, 30, 50),
+                          padding: const EdgeInsets.all(20),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: purple, width: 3),
+                              color: notPurple,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Text(
+                            "Get Start",
+                            style: TextStyle(color: purple, fontSize: 30),
+                            textAlign: TextAlign.center,
+                          ),
+                        ))),
+              ],
+            ),
           ),
         ),
 
