@@ -1,6 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:power_of_words/write.dart';
+import 'package:firebase_database/firebase_database.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -10,6 +15,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
         theme: ThemeData(fontFamily: "Aeonik"),
         debugShowCheckedModeBanner: false,
@@ -18,6 +24,7 @@ class MyApp extends StatelessWidget {
             child: LoginPage(),
           ),
         ));
+
   }
 }
 
@@ -27,6 +34,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // Create a text controller  to retrieve the value
+  final _textController = TextEditingController();
+
   String title = "Welcome\nTo\nPower of Words";
   String second =
       "Your Number One Personal Journey.Where every one of your thoughts is cared for properly.\n\nJoin us to improve your mental wellbeing!";
@@ -51,6 +61,14 @@ class _LoginPageState extends State<LoginPage> {
   var purple = Color(0xFF3B1B6A);
   var notPurple = Color(0xFFD5D4EA);
   bool isKeyboardVisible = false;
+
+  TextEditingController email = TextEditingController();
+  TextEditingController  password=  TextEditingController();
+  TextEditingController birthday =TextEditingController();
+  TextEditingController firstName = TextEditingController();
+  TextEditingController lastName = TextEditingController();
+  TextEditingController gender= TextEditingController();
+  TextEditingController race = TextEditingController(); 
 
   @override
   Widget build(BuildContext context) {
@@ -195,7 +213,7 @@ class _LoginPageState extends State<LoginPage> {
                             color: notPurple,
                             borderRadius: BorderRadius.circular(20)),
                         child: Text(
-                          "Get Start",
+                          "Get Started",
                           style: TextStyle(color: purple, fontSize: 30),
                           textAlign: TextAlign.center,
                         ),
@@ -263,9 +281,24 @@ class _LoginPageState extends State<LoginPage> {
               margin: EdgeInsets.only(bottom: 160),
               child: Column(
                 children: <Widget>[
-                  InputBox(btnText: "Email Address"),
-                  InputBox(btnText: "Password"),
-                  InputBox(btnText: "Date of Birth"),
+                  TextField(
+                    controller: email,  
+                    decoration: InputDecoration(
+                      hintText: 'Email',
+                      ),
+                  ),
+                  TextField(
+                    controller: password,  
+                    decoration: InputDecoration(
+                      hintText: 'Password',
+                      ),
+                  ),
+                  TextField(
+                    controller: birthday,  
+                    decoration: InputDecoration(
+                      hintText: 'Birthday',
+                      ),
+                  ),
                 ],
               ),
             ),
@@ -297,19 +330,62 @@ class _LoginPageState extends State<LoginPage> {
                 margin: EdgeInsets.only(bottom: 70),
                 child: Column(
                   children: <Widget>[
-                    InputBox(btnText: "First Name"),
-                    InputBox(btnText: "Last Name"),
-                    InputBox(btnText: "Gender"),
-                    InputBox(btnText: "Race"),
+                    TextField(
+                    controller: firstName,  
+                    decoration: InputDecoration(
+                      hintText: 'First Name',
+                      ),
+                  ),
+                  TextField(
+                    controller: lastName,  
+                    decoration: InputDecoration(
+                      hintText: 'Last Name',
+                      ),
+                  ),
+                    TextField(
+                    controller: gender,  
+                    decoration: InputDecoration(
+                      hintText: 'Gender',
+                      ),
+                  ),
+                    TextField(
+                    controller: race,  
+                    decoration: InputDecoration(
+                      hintText: 'Race',
+                      ),
+                  ),
                   ],
                 ),
               ),
-              PrimaryButton(btnText: "Finish")
+              ElevatedButton(
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => WriteUser(),
+                      ),
+                    );
+                  },
+                  child: Text("Finish"),
+              ),
             ],
           ),
         ),
       ],
     );
+  }
+  void addUser(String email, String password, DateTime birth){
+    final database = FirebaseDatabase.instance.ref();
+    database.set( {
+        'email' : email,
+        'password' : password,
+        'birthday': birth
+      }
+    );
+  }
+
+  void addData(String first, String last, String gender, String race){
+    final database = FirebaseDatabase.instance.ref();
   }
 }
 
