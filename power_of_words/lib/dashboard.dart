@@ -24,10 +24,7 @@ class _WriteUserState extends State<WriteUser>{
             children: [
               ElevatedButton(
                 onPressed: () {
-                  userData
-                      .set({'user': 'Aliah Lloyd', 'email': 'aliah.lloyd2000@gmail.com', 'birthday': '02/10/2000'})
-                      .then((_) => print("User Info has been successfully documented!"))
-                      .catchError((error) => print('Error has occured whilst writing'));
+                  print('Welcome!');
                 }, child: Text('HELLO'),
               ),
             ],
@@ -37,7 +34,4 @@ class _WriteUserState extends State<WriteUser>{
     );
   }
 
-  void addData(){
-    
-  }
 }
