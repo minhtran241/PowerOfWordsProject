@@ -1,7 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:power_of_words/write.dart';
+import 'package:power_of_words/dashboard.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,12 +65,31 @@ class _LoginPageState extends State<LoginPage> {
 
   TextEditingController email = TextEditingController();
   TextEditingController  password=  TextEditingController();
-  TextEditingController birthday =TextEditingController();
+  DateTime birthday = DateTime(1950-05-10);
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
   TextEditingController gender= TextEditingController();
   TextEditingController race = TextEditingController(); 
 
+  void _showDialog(Widget child) {  
+    showCupertinoModalPopup<void>(
+        context: context,
+        builder: (BuildContext context) => Container(
+              height: 216,
+              padding: const EdgeInsets.only(top: 6.0),
+              // The Bottom margin is provided to align the popup above the system navigation bar.
+              margin: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              // Provide a background color for the popup.
+              color: CupertinoColors.systemBackground.resolveFrom(context),
+              // Use a SafeArea widget to avoid system overlaps.
+              child: SafeArea(
+                top: false,
+                child: child,
+              ),
+            ));
+  }
   @override
   Widget build(BuildContext context) {
     _loginYOffset = windowHeight;
@@ -293,25 +313,44 @@ class _LoginPageState extends State<LoginPage> {
                       hintText: 'Password',
                       ),
                   ),
-                  TextField(
-                    controller: birthday,  
-                    decoration: InputDecoration(
-                      hintText: 'Birthday',
+                  const Text('Birthday'),
+                  CupertinoButton(
+                    // Display a CupertinoDatePicker in date picker mode.
+                    onPressed: () => _showDialog(
+                      CupertinoDatePicker(
+                        initialDateTime: birthday,
+                        mode: CupertinoDatePickerMode.date,
+                        use24hFormat: true,
+                        // This is called when the user changes the date.
+                        onDateTimeChanged: (DateTime newDate) {
+                          setState(() => birthday = newDate);
+                        },
                       ),
+                    ),
+                    // In this example, the date value is formatted manually. You can use intl package
+                    // to format the value based on user's locale settings.
+                    child: Text(
+                      '${birthday.month}-${birthday.day}-${birthday.year}',
+                      style: const TextStyle(
+                        fontSize: 22.0,
+                      ),
+                    ),
                   ),
                 ],
               ),
-            ),
+              ),
             GestureDetector(
               onTap: () {
                 setState(() {
                   _pageState = 3;
-                });
+                }
+                );
               },
               child: PrimaryButton(btnText: "Continue"),
             )
           ]),
-        ),
+    ),
+
 
         //next
         AnimatedContainer(
@@ -359,12 +398,13 @@ class _LoginPageState extends State<LoginPage> {
               ),
               ElevatedButton(
                   onPressed: (){
+                      addUser(email.toString(), password.toString(), birthday,
+                      firstName.toString(), lastName.toString(), gender.toString(),
+                      race.toString()
+                    );
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => WriteUser(),
-                      ),
-                    );
+                      MaterialPageRoute(builder: (context) => WriteUser()));
                   },
                   child: Text("Finish"),
               ),
@@ -374,18 +414,55 @@ class _LoginPageState extends State<LoginPage> {
       ],
     );
   }
-  void addUser(String email, String password, DateTime birth){
+  void addUser(String email, String password, DateTime birth, 
+               String first, String last, String gender, String race){
     final database = FirebaseDatabase.instance.ref();
-    database.set( {
+    final user = database.child('user/').push().set( {
         'email' : email,
         'password' : password,
-        'birthday': birth
+        'birthday': birth,
+        'firstName': first,
+        'lastName': last, 
+        'gender': gender,
+        'race': race,
       }
     );
-  }
+}
 
-  void addData(String first, String last, String gender, String race){
+  void addData(){
     final database = FirebaseDatabase.instance.ref();
+  }
+}
+
+    // This class simply decorates a row of widgets.
+class _DatePickerItem extends StatelessWidget {
+  const _DatePickerItem({required this.children});
+
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            color: CupertinoColors.inactiveGray,
+            width: 0.0,
+          ),
+          bottom: BorderSide(
+            color: CupertinoColors.inactiveGray,
+            width: 0.0,
+          ),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: children,
+        ),
+      ),
+    );
   }
 }
 
