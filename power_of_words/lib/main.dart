@@ -1,6 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:power_of_words/dashboard.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -10,6 +16,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
         theme: ThemeData(fontFamily: "Aeonik"),
         debugShowCheckedModeBanner: false,
@@ -18,6 +25,7 @@ class MyApp extends StatelessWidget {
             child: LoginPage(),
           ),
         ));
+
   }
 }
 
@@ -27,6 +35,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // Create a text controller  to retrieve the value
+  final _textController = TextEditingController();
+
   String title = "Welcome\nTo\nPower of Words";
   String second =
       "Your Number One Personal Journey.Where every one of your thoughts is cared for properly.\n\nJoin us to improve your mental wellbeing!";
@@ -52,6 +63,33 @@ class _LoginPageState extends State<LoginPage> {
   var notPurple = Color(0xFFD5D4EA);
   bool isKeyboardVisible = false;
 
+  TextEditingController email = TextEditingController();
+  TextEditingController  password=  TextEditingController();
+  DateTime birthday = DateTime(1950-05-10);
+  TextEditingController firstName = TextEditingController();
+  TextEditingController lastName = TextEditingController();
+  TextEditingController gender= TextEditingController();
+  TextEditingController race = TextEditingController(); 
+
+  void _showDialog(Widget child) {  
+    showCupertinoModalPopup<void>(
+        context: context,
+        builder: (BuildContext context) => Container(
+              height: 216,
+              padding: const EdgeInsets.only(top: 6.0),
+              // The Bottom margin is provided to align the popup above the system navigation bar.
+              margin: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              // Provide a background color for the popup.
+              color: CupertinoColors.systemBackground.resolveFrom(context),
+              // Use a SafeArea widget to avoid system overlaps.
+              child: SafeArea(
+                top: false,
+                child: child,
+              ),
+            ));
+  }
   @override
   Widget build(BuildContext context) {
     _loginYOffset = windowHeight;
@@ -171,6 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
+<<<<<<< HEAD
 
                 //picture container
                 Container(
@@ -202,6 +241,38 @@ class _LoginPageState extends State<LoginPage> {
                         ))),
               ],
             ),
+=======
+              ),
+              //picture container
+              Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Center(
+                    child: Image.asset('pic/Frame1.png'),
+                  )),
+              //button container
+              Container(
+                  child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _pageState = 1;
+                        });
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.fromLTRB(30, 0, 30, 50),
+                        padding: const EdgeInsets.all(20),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: purple, width: 3),
+                            color: notPurple,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Text(
+                          "Get Started",
+                          style: TextStyle(color: purple, fontSize: 30),
+                          textAlign: TextAlign.center,
+                        ),
+                      ))),
+            ],
+>>>>>>> main
           ),
         ),
 
@@ -264,22 +335,56 @@ class _LoginPageState extends State<LoginPage> {
               margin: EdgeInsets.only(bottom: 160),
               child: Column(
                 children: <Widget>[
-                  InputBox(btnText: "Email Address"),
-                  InputBox(btnText: "Password"),
-                  InputBox(btnText: "Date of Birth"),
+                  TextField(
+                    controller: email,  
+                    decoration: InputDecoration(
+                      hintText: 'Email',
+                      ),
+                  ),
+                  TextField(
+                    controller: password,  
+                    decoration: InputDecoration(
+                      hintText: 'Password',
+                      ),
+                  ),
+                  const Text('Birthday'),
+                  CupertinoButton(
+                    // Display a CupertinoDatePicker in date picker mode.
+                    onPressed: () => _showDialog(
+                      CupertinoDatePicker(
+                        initialDateTime: birthday,
+                        mode: CupertinoDatePickerMode.date,
+                        use24hFormat: true,
+                        // This is called when the user changes the date.
+                        onDateTimeChanged: (DateTime newDate) {
+                          setState(() => birthday = newDate);
+                        },
+                      ),
+                    ),
+                    // In this example, the date value is formatted manually. You can use intl package
+                    // to format the value based on user's locale settings.
+                    child: Text(
+                      '${birthday.month}-${birthday.day}-${birthday.year}',
+                      style: const TextStyle(
+                        fontSize: 22.0,
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
+              ),
             GestureDetector(
               onTap: () {
                 setState(() {
                   _pageState = 3;
-                });
+                }
+                );
               },
               child: PrimaryButton(btnText: "Continue"),
             )
           ]),
-        ),
+    ),
+
 
         //next
         AnimatedContainer(
@@ -298,18 +403,99 @@ class _LoginPageState extends State<LoginPage> {
                 margin: EdgeInsets.only(bottom: 70),
                 child: Column(
                   children: <Widget>[
-                    InputBox(btnText: "First Name"),
-                    InputBox(btnText: "Last Name"),
-                    InputBox(btnText: "Gender"),
-                    InputBox(btnText: "Race"),
+                    TextField(
+                    controller: firstName,  
+                    decoration: InputDecoration(
+                      hintText: 'First Name',
+                      ),
+                  ),
+                  TextField(
+                    controller: lastName,  
+                    decoration: InputDecoration(
+                      hintText: 'Last Name',
+                      ),
+                  ),
+                    TextField(
+                    controller: gender,  
+                    decoration: InputDecoration(
+                      hintText: 'Gender',
+                      ),
+                  ),
+                    TextField(
+                    controller: race,  
+                    decoration: InputDecoration(
+                      hintText: 'Race',
+                      ),
+                  ),
                   ],
                 ),
               ),
-              PrimaryButton(btnText: "Finish")
+              ElevatedButton(
+                  onPressed: (){
+                      addUser(email.toString(), password.toString(), birthday,
+                      firstName.toString(), lastName.toString(), gender.toString(),
+                      race.toString()
+                    );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => WriteUser()));
+                  },
+                  child: Text("Finish"),
+              ),
             ],
           ),
         ),
       ],
+    );
+  }
+  void addUser(String email, String password, DateTime birth, 
+               String first, String last, String gender, String race){
+    final database = FirebaseDatabase.instance.ref();
+    final user = database.child('user/').push().set( {
+        'email' : email,
+        'password' : password,
+        'birthday': birth,
+        'firstName': first,
+        'lastName': last, 
+        'gender': gender,
+        'race': race,
+      }
+    );
+}
+
+  void addData(){
+    final database = FirebaseDatabase.instance.ref();
+  }
+}
+
+    // This class simply decorates a row of widgets.
+class _DatePickerItem extends StatelessWidget {
+  const _DatePickerItem({required this.children});
+
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            color: CupertinoColors.inactiveGray,
+            width: 0.0,
+          ),
+          bottom: BorderSide(
+            color: CupertinoColors.inactiveGray,
+            width: 0.0,
+          ),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: children,
+        ),
+      ),
     );
   }
 }
