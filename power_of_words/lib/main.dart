@@ -1,4 +1,5 @@
 import 'package:power_of_words/homePage.dart';
+import 'package:power_of_words/wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -7,7 +8,6 @@ import 'package:power_of_words/authentication_service.dart';
 import 'package:power_of_words/dashboard.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'loginPage.dart';
 
 Future<void> main() async {
@@ -25,38 +25,21 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           Provider<AuthenticationService>(
-            create: (_) => AuthenticationService(FirebaseAuth.instance),
-          ),
-          StreamProvider(
-            create: (context) =>
-                context.read<AuthenticationService>().authStateChange,
-          )
+              create: (_) => AuthenticationService()),
         ],
         child: MaterialApp(
-            theme: ThemeData(fontFamily: "Aeonik"),
-            debugShowCheckedModeBanner: false,
-            home: Scaffold(
-              body: Container(
-                child: AuthenticationWrapper(),
-              ),
-            )));
+          theme: ThemeData(fontFamily: "Aeonik"),
+          debugShowCheckedModeBanner: false,
+          initialRoute: '/',
+          routes: {
+            '/': (context) => Wrapper(),
+            '/login': (context) => LoginPage(),
+          },
+        ));
   }
 }
 
-class AuthenticationWrapper extends StatelessWidget {
-  const AuthenticationWrapper({
-    Key? key,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    final FirebaseUser = context.watch<User>();
-    if (FirebaseUser != null) {
-      return HomePage();
-    }
-    return LoginPage();
-  }
-}
 
 
 // class LoginPage extends StatefulWidget {

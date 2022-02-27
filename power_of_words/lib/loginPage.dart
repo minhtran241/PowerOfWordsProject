@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:power_of_words/authentication_service.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dashboard.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,8 +14,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   // Create a text controller  to retrieve the value
   final _textController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+
   String title = "Welcome\nTo\nPower of Words";
   String second =
       "Your Number One Personal Journey.Where every one of your thoughts is cared for properly.\n\nJoin us to improve your mental wellbeing!";
@@ -70,6 +70,9 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthenticationService>(context);
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
     _loginYOffset = windowHeight;
     _RegisterYOffset = windowHeight;
     _nextYOffset = windowHeight;
@@ -147,7 +150,8 @@ class _LoginPageState extends State<LoginPage> {
         _RegisterYOffset = 230;
         _nextYOffset = 250;
     }
-    return Stack(
+    return Material(
+        child: Stack(
       children: <Widget>[
         GestureDetector(
           onTap: () {
@@ -257,7 +261,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    context.read<AuthenticationService>().signIn(
+                    authService.signIn(
                         email: emailController.text,
                         password: passwordController.text);
                   },
@@ -375,17 +379,11 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               GestureDetector(
-                  onTap: () {
-                    addUser(
-                        email.toString(),
-                        password.toString(),
-                        birthday,
-                        firstName.toString(),
-                        lastName.toString(),
-                        gender.toString(),
-                        race.toString());
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => WriteUser()));
+                  onTap: () async {
+                    await authService.signUp(
+                        email: emailController.text,
+                        password: passwordController.text);
+
                     setState(() {
                       _pageState = 1;
                     });
@@ -395,7 +393,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ],
-    );
+    ));
   }
 
   void addUser(String email, String password, DateTime birth, String first,
