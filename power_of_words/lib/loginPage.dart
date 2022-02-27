@@ -396,11 +396,10 @@ class _LoginPageState extends State<LoginPage> {
   void addUser(String uid, String email, String password, DateTime birth,
       String first, String last, String gender, String race) {
     final database = FirebaseDatabase.instance.ref();
-    String? newkey = database.child(uid).push().key;
-    database.child('user/').child(newkey!).push().set({
+    database.child('user/').child(uid).set({
       'email': email,
       'password': password,
-      'birthday': birth,
+      'birthday': birth.toString(),
       'firstName': first,
       'lastName': last,
       'gender': gender,
