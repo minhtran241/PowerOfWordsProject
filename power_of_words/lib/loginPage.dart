@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:power_of_words/authentication_service.dart';
+import 'package:power_of_words/user.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dashboard.dart';
@@ -14,7 +15,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   // Create a text controller  to retrieve the value
   final _textController = TextEditingController();
-
   String title = "Welcome\nTo\nPower of Words";
   String second =
       "Your Number One Personal Journey.Where every one of your thoughts is cared for properly.\n\nJoin us to improve your mental wellbeing!";
@@ -380,13 +380,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
               GestureDetector(
                   onTap: () async {
-                    await authService.signUp(
-                        email: emailController.text,
-                        password: passwordController.text);
-
-                    setState(() {
-                      _pageState = 1;
-                    });
+                    User? user = await authService.signUp(
+                        email: email.text, password: password.text);
+                    addUser(user!.uid, email.text, password.text, birthday,
+                        firstName.text, lastName.text, gender.text, race.text);
                   },
                   child: PrimaryButton(btnText: "Finish")),
             ],
@@ -396,10 +393,11 @@ class _LoginPageState extends State<LoginPage> {
     ));
   }
 
-  void addUser(String email, String password, DateTime birth, String first,
-      String last, String gender, String race) {
+  void addUser(String uid, String email, String password, DateTime birth,
+      String first, String last, String gender, String race) {
     final database = FirebaseDatabase.instance.ref();
-    final user = database.child('user/').push().set({
+    String? newkey = database.child(uid).push().key;
+    database.child('user/').child(newkey!).push().set({
       'email': email,
       'password': password,
       'birthday': birth,
@@ -408,10 +406,6 @@ class _LoginPageState extends State<LoginPage> {
       'gender': gender,
       'race': race,
     });
-  }
-
-  void addData() {
-    final database = FirebaseDatabase.instance.ref();
   }
 }
 
