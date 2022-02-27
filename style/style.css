@@ -1,0 +1,194 @@
+body{background-color:black !important;}
+#project{
+    margin-top:0%;
+}
+h2{
+  font-size:700%!important;
+  margin-top:5%!important; 
+  text-align:center!important;
+ background: -webkit-linear-gradient(45deg,#ee9ca7, #ffdde1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#intro{
+  text-align:center;
+  border-radius:20px;
+  font-size:250%;
+  padding:30px;
+  margin-top:3%;
+  margin-left:3%;
+  color:white;
+  background-color:#282828;
+}
+#privacyAndPower{
+  margin-top:3%;
+  margin-left:3%;
+}
+#privacy{
+  font-size:80%;
+  padding-top:3%;
+  padding-left:4%;
+  padding-right:4%;
+  padding-bottom:2%;
+  border-radius:20px;
+  background-color:#282828;
+  color:white;
+
+}
+#powerby{
+  margin-left:3%;
+  border-radius:20px;
+  background-color:#282828;
+
+}
+#privacyContent{
+ font-size:350%;
+}
+
+#powerby{ 
+  color:white;
+
+
+}
+#powerByWord{
+  padding-top:4%;
+  font-size:300%;
+  text-align:center;
+}
+#us{
+  margin:10px;
+   background: -webkit-linear-gradient(45deg,#ee9ca7, #ffdde1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#logoAndName{
+font-size:200%;
+ text-align:center;
+}
+#flutter{
+  background: -webkit-linear-gradient(45deg,#B2FEFA, #0ED2F7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#dart{
+   background: -webkit-linear-gradient(45deg,#2980B9, #6DD5FA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#firebase{
+   background: -webkit-linear-gradient(45deg,#F12711, #F5AF19);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#logo{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:4%;
+  width:30%;
+  heigth:30%;
+  padding-bottom:5%;
+}
+#ui{
+  margin-top:3%;
+  margin-left:3%;
+  color:white;
+}
+#getstart{
+   padding-top:2%;
+  font-size:300%;
+    border-radius:20px;
+    background-color:#282828;
+  text-align:center;
+   
+
+
+}
+#animation{
+    text-align:center;
+    color:white;
+    border-radius:20px;
+    margin-left:2%;
+    background-color:#282828;
+    padding-bottom:4%;
+}
+#release1{
+  padding-top:3%;
+  padding-bottom:3%;
+  border-radius:20px;
+  margin-top:3%;
+  margin-left:3%;
+  color:white;
+   background-color:#282828;
+  text-align:center;
+  margin-bottom:3%;
+}
+#contribute{
+  width:98%;
+  margin-left:3%;
+  color:white;
+  background-color:#282828;
+  border-radius:20px;
+  text-align:center;
+  padding-bottom:3%;
+  margin-bottom:3%;
+}
+#contributionHeading{
+  font-size:300%;
+  
+}
+#name{
+  font-size:200%;
+  text-align:center;
+}
+
+#uipic{
+  margin-top:5%;
+  border-radius:20px;
+  width:90%;
+  heigth:90%;
+  
+}
+#heading{
+   text-align:center;
+  font-size:300%;
+}
+
+#para{
+   text-align:center;
+  font-size:200%;
+}
+#animationHeading{
+  padding-top:2%;
+  text-align:center;
+  font-size:300%;
+}
+#animatedBody{
+  text-align:center;
+  font-size:200%;
+}
+
+
+
+#dat{
+   background: -webkit-linear-gradient(45deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#aliah{
+   background: -webkit-linear-gradient(45deg,#FFE53B, #FF2525);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#calob{
+   background: -webkit-linear-gradient(45deg,#08AEEA, #2AF598);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#holden{
+   background: -webkit-linear-gradient(45deg, #74EBD5 0%, #9FACE6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
