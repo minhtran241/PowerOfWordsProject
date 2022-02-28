@@ -1,0 +1,6 @@
+projectKey=Power-of-Words
+serverUrl=http://localhost:9000
+serverVersion=9.3.0.51899
+dashboardUrl=http://localhost:9000/dashboard?id=Power-of-Words
+ceTaskId=AX88xMlvxL7j60BiFkPX
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AX88xMlvxL7j60BiFkPX
