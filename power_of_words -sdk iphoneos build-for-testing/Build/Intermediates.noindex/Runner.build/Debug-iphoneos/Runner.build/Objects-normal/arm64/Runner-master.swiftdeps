@@ -1,0 +1,7 @@
+version: "Apple Swift version 5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)"
+options: "f16520ea32646b431957384d45fb597ee4c8909ef1ed22ff574bf0974d25c488"
+build_start_time: [1646335945, 980896949]
+build_end_time: [1646335946, 347234010]
+inputs:
+  ? "/Users/calobhorton/Documents/GVSU/Winter 2022/CIS 350/Term Project/PowerOfWordsProject/power_of_words/ios/Runner/AppDelegate.swift"
+  : !private [1645755101, 69280147]

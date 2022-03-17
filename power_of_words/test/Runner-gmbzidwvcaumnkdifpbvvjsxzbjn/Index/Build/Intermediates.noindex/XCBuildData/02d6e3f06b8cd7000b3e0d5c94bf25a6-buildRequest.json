@@ -1,0 +1,67 @@
+{
+  "_buildCommand2" : {
+    "command" : "prepareForIndexing",
+    "enableIndexBuildArena" : true,
+    "targets" : null
+  },
+  "buildCommand" : "build",
+  "configuredTargets" : [
+    {
+      "guid" : "18c1723432283e0cc55f10a6dcfd9e0288a783a885d8b0b3beb2e9f90bde3f49"
+    }
+  ],
+  "containerPath" : "/Users/calobhorton/Documents/GVSU/Winter 2022/CIS 350/Term Project/PowerOfWordsProject/power_of_words/ios/Runner.xcodeproj",
+  "continueBuildingAfterErrors" : true,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "indexbuild",
+    "activeArchitecture" : "arm64e",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : true,
+      "platform" : "iphoneos",
+      "sdk" : "iphoneos15.2",
+      "sdkVariant" : "iphoneos",
+      "supportedArchitectures" : [
+        "armv4t",
+        "armv5",
+        "armv6",
+        "armv7",
+        "armv7f",
+        "armv7s",
+        "armv7k",
+        "arm64",
+        "arm64e"
+      ],
+      "targetArchitecture" : "arm64e"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/calobhorton/Documents/GVSU/Winter 2022/CIS 350/Term Project/PowerOfWordsProject/power_of_words/test/Runner-gmbzidwvcaumnkdifpbvvjsxzbjn/Index/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/calobhorton/Documents/GVSU/Winter 2022/CIS 350/Term Project/PowerOfWordsProject/power_of_words/test/Runner-gmbzidwvcaumnkdifpbvvjsxzbjn/Index/Build/Products",
+      "derivedDataPath" : "/Users/calobhorton/Documents/GVSU/Winter 2022/CIS 350/Term Project/PowerOfWordsProject/power_of_words/test",
+      "indexDataStoreFolderPath" : "/Users/calobhorton/Documents/GVSU/Winter 2022/CIS 350/Term Project/PowerOfWordsProject/power_of_words/test/Runner-gmbzidwvcaumnkdifpbvvjsxzbjn/Index/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/calobhorton/Documents/GVSU/Winter 2022/CIS 350/Term Project/PowerOfWordsProject/power_of_words/test/Runner-gmbzidwvcaumnkdifpbvvjsxzbjn/Index/PrecompiledHeaders",
+      "pchPath" : "/Users/calobhorton/Documents/GVSU/Winter 2022/CIS 350/Term Project/PowerOfWordsProject/power_of_words/test/Runner-gmbzidwvcaumnkdifpbvvjsxzbjn/Index/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "synthesized" : {
+        "table" : {
+          "ENABLE_PREVIEWS" : "NO",
+          "INDEX_ARENA_INFO_REGULAR_BUILD_PRODUCTS_DIR" : "/Users/calobhorton/Documents/GVSU/Winter 2022/CIS 350/Term Project/PowerOfWordsProject/power_of_words/test/Runner-gmbzidwvcaumnkdifpbvvjsxzbjn/Build/Products",
+          "ONLY_ACTIVE_ARCH" : "YES"
+        }
+      }
+    }
+  },
+  "qos" : "utility",
+  "schemeCommand" : "launch",
+  "schemeCommand2" : "launch",
+  "shouldCollectMetrics" : false,
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}
