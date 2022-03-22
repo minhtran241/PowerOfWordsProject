@@ -1,55 +1,31 @@
-import 'package:firebase_auth/firebase_auth.dart' as fPrefix;
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:power_of_words/main.dart';
-import 'package:rxdart/rxdart.dart';
-import 'package:power_of_words/authentication_service.dart' as authent;
-import 'package:power_of_words/user.dart' as mPrefix;
+//import 'dart:html';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:power_of_words/authentication_service.dart';
+import 'package:power_of_words/user.dart';
 
-class MockFirebaseAuth extends Mock implements fPrefix.FirebaseAuth {}
+import 'mock.dart';
 
-class MockFirebaseUser extends Mock implements fPrefix.User {}
+class MockAuthenticationService extends Mock implements AuthenticationService {}
 
-class MockAuthResult extends Mock implements fPrefix.UserCredential {}
+void main() {
+  late AuthenticationService authserv;
+  setupCloudFirestoreMocks();
+  Firebase.initializeApp();
 
-// adapted from https://github.com/lohanidamodar/flutter_auth
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  MockFirebaseAuth _auth = MockFirebaseAuth();
-  BehaviorSubject<MockFirebaseUser> _user = BehaviorSubject<MockFirebaseUser>();
-  when(_auth.authStateChanges()).thenAnswer((_) {
-    return _user;
+  setUp(() async {
+    authserv = AuthenticationService();
+    WidgetsFlutterBinding.ensureInitialized();
   });
-  authent.AuthenticationService _repo = authent.AuthenticationService();
-  runApp(MyApp());
-  group('user repository test', () {
-    when(_auth.signInWithEmailAndPassword(email: "email", password: "password"))
-        .thenAnswer((_) async {
-      _user.add(MockFirebaseUser());
-      return MockAuthResult();
-    });
-    when(_auth.signInWithEmailAndPassword(email: "mail", password: "pass"))
-        .thenThrow(() {
-      return null;
-    });
-    test("sign in with email and password", () async {
-      mPrefix.User? signedIn =
-          await _repo.signIn(email: 'email', password: 'password');
-      expect(signedIn?.email, 'email');
-      //expect(signedIn?.uid, 'uid');
-    });
 
-    // test("sing in fails with incorrect email and password", () async {
-    //   mPrefix.User? signedIn =
-    //       await _repo.signIn(email: 'email', password: 'password');
-    //   expect(signedIn, false);
-    // });
-
-    // test('sign out', () async {
-    //   await _repo.signOut();
-    // });
+  test("sign in with valid credentials", () async {
+    String userEmail = 'dat4@gmail.com';
+    String userPass = 'dat123456';
+    //Future<User?> credential =
+    //    authserv.signIn(email: userEmail, password: userPass);
+    await expectLater(authserv.signIn(email: userEmail, password: userPass),
+        completion(User('RORKX36biXSDNk6q6wgcRHUSKkC2', 'dat4@gmail.com')));
   });
 }

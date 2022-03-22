@@ -43,6 +43,7 @@ dependencies:
   firebase_storage_mocks: ^0.5.0
   firebase_auth_mocks: ^0.8.2
   google_sign_in_mocks: ^0.2.1
+  mocktail: ^0.3.0
 
 dev_dependencies:
   flutter_test:
