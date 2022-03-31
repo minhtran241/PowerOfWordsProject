@@ -39,11 +39,11 @@ class _HomePageState extends State<HomePage> {
         padding: EdgeInsets.all(10),
         child: Column(children: [
           Container(
-            child: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-              future: FirebaseFirestore.instance
+            child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+              stream: FirebaseFirestore.instance
                   .collection("UserID")
                   .doc(uid)
-                  .get(),
+                  .snapshots(),
               builder: (_, snapshot) {
                 if (snapshot.hasError) return Text('Error = ${snapshot.error}');
                 if (snapshot.hasData) {
