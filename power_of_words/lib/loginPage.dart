@@ -6,6 +6,7 @@ import 'package:power_of_words/user.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dashboard.dart';
+import 'package:intl/intl.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -70,6 +71,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final DateTime now = DateTime.now();
     final authService = Provider.of<AuthenticationService>(context);
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
@@ -155,13 +157,11 @@ class _LoginPageState extends State<LoginPage> {
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            setState(() {
-              if (_pageState > 0) {
+            if (_pageState > 0) {
+              setState(() {
                 _pageState--;
-              } else {
-                _pageState = 0;
-              }
-            });
+              });
+            }
           },
           child: AnimatedContainer(
             width: windowWidth,
@@ -248,10 +248,12 @@ class _LoginPageState extends State<LoginPage> {
                 margin: EdgeInsets.only(top: 30, bottom: 100),
                 child: Column(children: <Widget>[
                   InputBox(
+                    flag: false,
                     btnText: "Email",
                     controller: emailController,
                   ),
                   InputBox(
+                    flag: true,
                     btnText: "Password",
                     controller: passwordController,
                   ),
@@ -298,10 +300,12 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 children: <Widget>[
                   InputBox(
+                    flag: false,
                     btnText: "Email",
                     controller: email,
                   ),
                   InputBox(
+                    flag: true,
                     btnText: "Password",
                     controller: password,
                   ),
@@ -360,18 +364,22 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   children: <Widget>[
                     InputBox(
+                      flag: false,
                       btnText: "First Name",
                       controller: firstName,
                     ),
                     InputBox(
+                      flag: false,
                       btnText: "Last Name",
                       controller: lastName,
                     ),
                     InputBox(
+                      flag: false,
                       btnText: "Gender",
                       controller: gender,
                     ),
                     InputBox(
+                      flag: false,
                       btnText: "Race",
                       controller: race,
                     ),
@@ -381,7 +389,13 @@ class _LoginPageState extends State<LoginPage> {
               GestureDetector(
                   onTap: () async {
                     User? user = await authService.signUp(
-                        email: email.text, password: password.text);
+                        email: email.text,
+                        password: password.text,
+                        firstName: firstName.text,
+                        lastName: lastName.text,
+                        age: calculateAge(birthday),
+                        race: race.text,
+                        gender: gender.text);
                     addUser(user!.uid, email.text, password.text, birthday,
                         firstName.text, lastName.text, gender.text, race.text);
                   },
@@ -443,7 +457,9 @@ class _DatePickerItem extends StatelessWidget {
 class InputBox extends StatefulWidget {
   final String btnText;
   final TextEditingController controller;
-  InputBox({required this.btnText, required this.controller});
+  final bool flag;
+  InputBox(
+      {required this.btnText, required this.controller, required this.flag});
   @override
   _InputBoxState createState() => _InputBoxState();
 }
@@ -461,7 +477,8 @@ class _InputBoxState extends State<InputBox> {
             border: Border.all(width: 2.5, color: purpleBorder),
             borderRadius: BorderRadius.circular(15)),
         child: Container(
-            child: TextField(
+            child: TextFormField(
+          obscureText: widget.flag,
           controller: widget.controller,
           textAlign: TextAlign.center,
           decoration: InputDecoration(
@@ -472,6 +489,23 @@ class _InputBoxState extends State<InputBox> {
               contentPadding: EdgeInsets.only(top: 15, bottom: 15)),
         )));
   }
+}
+
+int calculateAge(DateTime birthDate) {
+  DateTime currentDate = DateTime.now();
+  int age = currentDate.year - birthDate.year;
+  int month1 = currentDate.month;
+  int month2 = birthDate.month;
+  if (month2 > month1) {
+    age--;
+  } else if (month1 == month2) {
+    int day1 = currentDate.day;
+    int day2 = birthDate.day;
+    if (day2 > day1) {
+      age--;
+    }
+  }
+  return age;
 }
 
 class PrimaryButton extends StatefulWidget {

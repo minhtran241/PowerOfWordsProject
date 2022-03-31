@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-import 'package:firebase_core/firebase_core.dart';
 import 'package:power_of_words/user.dart';
+import 'package:power_of_words/database.dart';
 
 //handle connection
 class AuthenticationService {
-  final auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
+  final auth.FirebaseAuth firebaseAuth;
+  AuthenticationService({required this.firebaseAuth});
 
   User? _userFromFirebase(auth.User? user) {
     if (user == null) {
@@ -14,34 +15,44 @@ class AuthenticationService {
   }
 
   Stream<User?>? get user {
-    return _firebaseAuth.authStateChanges().map(_userFromFirebase);
+    return firebaseAuth.authStateChanges().map(_userFromFirebase);
   }
 
   Future<User?> signIn(
       {required String email, required String password}) async {
     try {
-      final credential = await _firebaseAuth.signInWithEmailAndPassword(
+      final credential = await firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
       return _userFromFirebase(credential.user);
     } on Exception catch (e) {
       print(e);
     }
+    return null;
   }
 
   Future<User?> signUp({
     required String email,
     required String password,
+    required String firstName,
+    required String lastName,
+    required int age,
+    required String race,
+    required String gender,
   }) async {
     try {
-      final credential = await _firebaseAuth.createUserWithEmailAndPassword(
+      final credential = await firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
+      auth.User? user = credential.user;
+      await DatabaseService(uid: user!.uid)
+          .updateUserData(firstName, lastName, age, gender, race);
       return _userFromFirebase(credential.user);
     } on Exception catch (e) {
       print(e);
     }
+    return null;
   }
 
   Future<void> signOut() async {
-    return await _firebaseAuth.signOut();
+    return await firebaseAuth.signOut();
   }
 }
