@@ -22,10 +22,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     return MultiProvider(
         providers: [
           Provider<AuthenticationService>(
-              create: (_) => AuthenticationService()),
+              create: (_) => AuthenticationService(firebaseAuth: firebaseAuth)),
         ],
         child: MaterialApp(
           theme: ThemeData(fontFamily: "Aeonik"),

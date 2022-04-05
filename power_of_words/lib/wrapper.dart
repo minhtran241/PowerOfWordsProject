@@ -17,7 +17,7 @@ class Wrapper extends StatelessWidget {
             final User? user = snapshot.data;
             return user == null ? LoginPage() : HomePage();
           } else {
-            return Scaffold(
+            return const Scaffold(
                 body: Center(
               child: CircularProgressIndicator(),
             ));
