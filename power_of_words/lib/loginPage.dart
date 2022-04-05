@@ -407,9 +407,24 @@ class _LoginPageState extends State<LoginPage> {
     ));
   }
 
-  void addUser(String uid, String email, String password, DateTime birth,
-      String first, String last, String gender, String race) {
+
+/*************************************************************************************************
+ * In this method, the users information is passed into the method to be inserted into the 
+ * database as a new user. 
+ * 
+ * @param uid - the users id in the database, email - users email, 
+ * password - users password to account, birth - users birthday, 
+ * first - users first name, last - users last name, gender - users selected gender, 
+ * race - users selected race 
+ *************************************************************************************************/
+
+  void addUser(String uid, String email, String password, DateTime birth, String first, 
+               String last, String gender, String race) {
+    //creating a reference to access the Firebase RealTime Database
     final database = FirebaseDatabase.instance.ref();
+
+    //putting all user information into the database - commented parts are the labels
+    //in which the values are under
     database.child('user/').child(uid).set({
       'email': email,
       'password': password,
