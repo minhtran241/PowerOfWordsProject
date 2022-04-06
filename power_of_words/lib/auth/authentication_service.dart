@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-import 'package:power_of_words/user.dart';
-import 'package:power_of_words/database.dart';
+import '../model/user.dart';
+import '../model/database.dart';
 
 //handle connection
 class AuthenticationService {

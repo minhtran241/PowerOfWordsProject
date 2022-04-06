@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:power_of_words/authentication_service.dart';
+import 'package:power_of_words/auth/authentication_service.dart';
 import 'package:provider/provider.dart';
-import 'database.dart';
-import "string_extension.dart";
+import '../model/database.dart';
+import '../extension/string_extension.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -25,9 +25,12 @@ class _HomePageState extends State<HomePage> {
     TextEditingController messageController = new TextEditingController();
     double windowHeight = MediaQuery.of(context).size.height;
     double windowWidth = MediaQuery.of(context).size.width;
+    //authentication serrivce proivde logout
     final authService = Provider.of<AuthenticationService>(context);
+    // documentReference for user information
     DocumentReference doc_ref =
         FirebaseFirestore.instance.collection("UserID").doc(uid);
+    //stream for old input journey
     final Stream<QuerySnapshot> mess = FirebaseFirestore.instance
         .collection("Message")
         .doc(uid)

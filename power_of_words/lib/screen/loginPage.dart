@@ -1,12 +1,9 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:power_of_words/authentication_service.dart';
-import 'package:power_of_words/user.dart';
+import '../auth/authentication_service.dart';
+import '../model/user.dart';
 import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dashboard.dart';
-import 'package:intl/intl.dart';
 
 class LoginPage extends StatefulWidget {
   @override
