@@ -1,14 +1,10 @@
-import 'package:power_of_words/homePage.dart';
 import 'package:power_of_words/wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:power_of_words/authentication_service.dart';
-import 'package:power_of_words/dashboard.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/cupertino.dart';
-import 'loginPage.dart';
+import 'package:power_of_words/auth/authentication_service.dart';
+import 'screen/loginPage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

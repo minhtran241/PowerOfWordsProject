@@ -1,8 +1,7 @@
-import 'package:flutter/widgets.dart';
-import 'package:power_of_words/authentication_service.dart';
-import 'package:power_of_words/homePage.dart';
-import 'package:power_of_words/loginPage.dart';
-import 'package:power_of_words/user.dart';
+import 'package:power_of_words/auth/authentication_service.dart';
+import 'screen/homePage.dart';
+import 'screen/loginPage.dart';
+import 'package:power_of_words/model/user.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
