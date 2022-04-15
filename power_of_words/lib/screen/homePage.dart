@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:power_of_words/auth/authentication_service.dart';
 import 'package:provider/provider.dart';
+import 'package:sentiment_dart/sentiment_dart.dart';
 import '../model/database.dart';
 import '../extension/string_extension.dart';
 
@@ -64,9 +65,11 @@ class _HomePageState extends State<HomePage> {
           TextField(
               controller: messageController,
               decoration:
-                  InputDecoration(hintText: "What do you have in mine")),
+                 //text for user's input 
+                  InputDecoration(hintText: "What do you have in mind?")),
           ElevatedButton(
               onPressed: (() async {
+                //puts recorded input into the database with date and time inputted
                 DatabaseService(uid: uid)
                     .updateMessage(messageController.text, DateTime.now());
               }),
@@ -83,15 +86,20 @@ class _HomePageState extends State<HomePage> {
                     return CircularProgressIndicator();
                   }
                   final data = snapshot.requireData;
+
+                  //displays the inputted message with the date and time
                   print(data.docs[0]['date']);
                   print(data.docs[0]['message']);
+                  print(data.docs[0]['sentimental analysis']);
+                  
                   return ListView.builder(
                       itemCount: data.size,
                       itemBuilder: (contex, index) {
                         String userinput = data.docs[index]['message'];
                         DateTime dateinput = data.docs[index]['date'].toDate();
                         String dateToString = dateinput.toString();
-                        return Text("$dateToString \n $userinput");
+                        double sentianalysis = getSentimentalAnalysis(userinput);
+                        return Text("$dateToString \n $userinput \n $sentianalysis");
                       });
                 }),
           ),
@@ -107,4 +115,12 @@ class _HomePageState extends State<HomePage> {
       ),
     ));
   }
+    double getSentimentalAnalysis(String message){
+        double tot = 0;
+        message.replaceAll(new RegExp(r'[^\w\s]+'),'');
+        message.toLowerCase();
+
+        tot = Sentiment.analysis(message).score;
+        return tot;  
+    }
 }
