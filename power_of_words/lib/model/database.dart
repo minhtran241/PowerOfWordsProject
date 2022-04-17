@@ -19,7 +19,7 @@ class DatabaseService {
     });
   }
 
-  Future updateMessage(String message, DateTime date) async {
+  Future updateMessage(String message, DateTime date, int score) async {
     return await messaged
         .doc(uid)
         .collection("message")
@@ -27,6 +27,7 @@ class DatabaseService {
         .set({
       'message': message,
       'date': date,
+      'score': score,
     });
   }
 }

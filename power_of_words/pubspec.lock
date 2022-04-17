@@ -141,6 +141,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  dart_sentiment:
+    dependency: "direct main"
+    description:
+      name: dart_sentiment
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.9"
   dart_style:
     dependency: transitive
     description:
@@ -303,6 +310,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.17.0"
+  inview_notifier_list:
+    dependency: "direct main"
+    description:
+      name: inview_notifier_list
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   js:
     dependency: transitive
     description:
@@ -424,6 +438,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  rect_getter:
+    dependency: "direct main"
+    description:
+      name: rect_getter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
+  remove_emoji:
+    dependency: transitive
+    description:
+      name: remove_emoji
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.7"
   rxdart:
     dependency: "direct dev"
     description:
@@ -464,6 +492,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  stream_transform:
+    dependency: transitive
+    description:
+      name: stream_transform
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   string_scanner:
     dependency: transitive
     description:

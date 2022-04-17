@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:power_of_words/model/database.dart';
 import 'package:power_of_words/screen/homePage.dart';
 import 'package:intl/intl.dart';
+import 'package:dart_sentiment/dart_sentiment.dart';
 
 class inputPage extends StatelessWidget {
   final String uid;
@@ -22,6 +23,10 @@ class inputPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime a = DateTime.now();
+    final b = Sentiment();
+    String day = DateFormat.yMMMd().format(a).toString();
+    String hours = DateFormat.jm().format(a).toString();
     TextEditingController messageController = new TextEditingController();
     var height = MediaQuery.of(context).size.height;
     double unitHeightValue = MediaQuery.of(context).size.height * 0.01;
@@ -39,8 +44,12 @@ class inputPage extends StatelessWidget {
                     side: BorderSide(width: 2, color: Color(0xFF3B1B6A)),
                   ),
                   onPressed: (() async {
-                    DatabaseService(uid: uid)
-                        .updateMessage(messageController.text, DateTime.now());
+                    var result =
+                        b.analysis(messageController.text, emoji: true);
+                    DatabaseService(uid: uid).updateMessage(
+                        messageController.text,
+                        DateTime.now(),
+                        result['score']);
                     return Navigator.of(context).pop(null);
                   }),
                   child: Text(
@@ -94,7 +103,7 @@ class inputPage extends StatelessWidget {
                     children: <Widget>[
                       Container(
                           child: Text(
-                        DateTime.now().toString(),
+                        day + " " + hours,
                         style: TextStyle(
                             fontSize: unitHeightValue * 2,
                             foreground: Paint()
@@ -104,7 +113,7 @@ class inputPage extends StatelessWidget {
                       )),
                       Container(
                           child: Text(
-                        DateTime.now().toString(),
+                        day + " " + hours,
                         style: TextStyle(
                           color: Color(0XFFD5D4EA),
                           fontSize: unitHeightValue * 2,
@@ -122,18 +131,20 @@ class inputPage extends StatelessWidget {
                 Container(
                   height: height - 200,
                   child: TextField(
-                      maxLines: 50,
-                      controller: messageController,
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide: BorderSide(
-                                  color: Color(0xFF3B1B6A), width: 2)),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide: BorderSide(
-                                  color: Color(0XFFD5D4EA), width: 2)),
-                          hintText: "What do you have in mine")),
+                    maxLines: 50,
+                    controller: messageController,
+                    decoration: InputDecoration(
+                        hintStyle: TextStyle(color: Color(0xFF3B1B6A)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide:
+                                BorderSide(color: Color(0xFF3B1B6A), width: 2)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide:
+                                BorderSide(color: Color(0XFFD5D4EA), width: 2)),
+                        hintText: "What do you have in mine"),
+                  ),
                 ),
               ]))
         ])));
