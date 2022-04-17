@@ -49,6 +49,8 @@ dependencies:
   dart_sentiment: ^0.0.9
   inview_notifier_list: ^3.0.0
   rect_getter: ^1.1.0
+  visibility_detector: ^0.2.2
+  sentiment_dart: ^0.0.5
 
 dev_dependencies:
   
