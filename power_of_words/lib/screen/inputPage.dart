@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:power_of_words/model/database.dart';
 import 'package:power_of_words/screen/homePage.dart';
 import 'package:intl/intl.dart';
-import 'package:dart_sentiment/dart_sentiment.dart';
+import 'package:sentiment_dart/sentiment_dart.dart';
 
 class inputPage extends StatelessWidget {
   final String uid;
@@ -24,7 +24,6 @@ class inputPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime a = DateTime.now();
-    final b = Sentiment();
     String day = DateFormat.yMMMd().format(a).toString();
     String hours = DateFormat.jm().format(a).toString();
     TextEditingController messageController = new TextEditingController();
@@ -44,12 +43,10 @@ class inputPage extends StatelessWidget {
                     side: BorderSide(width: 2, color: Color(0xFF3B1B6A)),
                   ),
                   onPressed: (() async {
-                    var result =
-                        b.analysis(messageController.text, emoji: true);
+                    double result =
+                        getSentimentalAnalysis(messageController.text);
                     DatabaseService(uid: uid).updateMessage(
-                        messageController.text,
-                        DateTime.now(),
-                        result['score']);
+                        messageController.text, DateTime.now(), result);
                     return Navigator.of(context).pop(null);
                   }),
                   child: Text(
@@ -148,5 +145,13 @@ class inputPage extends StatelessWidget {
                 ),
               ]))
         ])));
+  }
+
+  double getSentimentalAnalysis(String message) {
+    double tot = 0;
+    message.replaceAll(new RegExp(r'[^\w\s]+'), '');
+    message.toLowerCase();
+    tot = Sentiment.analysis(message).score;
+    return tot;
   }
 }
