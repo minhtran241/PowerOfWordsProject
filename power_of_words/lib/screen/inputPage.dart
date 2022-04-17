@@ -129,7 +129,7 @@ class inputPage extends StatelessWidget {
               padding: EdgeInsets.all(10),
               child: Column(children: <Widget>[
                 Container(
-                  height: height - 200,
+                  height: height - 150,
                   child: TextField(
                     maxLines: 50,
                     controller: messageController,
