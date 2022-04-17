@@ -297,7 +297,7 @@ packages:
     source: hosted
     version: "4.0.0"
   intl:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: intl
       url: "https://pub.dartlang.org"
@@ -317,6 +317,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  loading:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "022d172da8cb71a415498873c4da5bf8c75150f5"
+      url: "https://github.com/bradintheusa/loading"
+    source: git
+    version: "1.1.0"
   logging:
     dependency: transitive
     description:
@@ -476,13 +485,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.8"
-  timelines:
+  timeline_tile:
     dependency: "direct main"
     description:
-      name: timelines
+      name: timeline_tile
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0"
+    version: "2.0.0"
   typed_data:
     dependency: transitive
     description:

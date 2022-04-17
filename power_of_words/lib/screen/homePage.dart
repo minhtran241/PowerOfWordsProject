@@ -3,14 +3,19 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:loading/indicator/line_scale_indicator.dart';
+import 'package:loading/indicator/line_scale_party_indicator.dart';
 import 'package:power_of_words/auth/authentication_service.dart';
+import 'package:power_of_words/screen/inputPage.dart';
 import 'package:provider/provider.dart';
 import '../model/database.dart';
 import '../extension/string_extension.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:animations/animations.dart';
-import 'package:timelines/timelines.dart';
+import 'package:timeline_tile/timeline_tile.dart';
+import 'package:loading/loading.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -27,11 +32,12 @@ class _HomePageState extends State<HomePage> {
     var purple = Color(0xFF3B1B6A);
     var notpurple = Color(0XFFD5D4EA);
     String uid;
+    String capfirst = "";
+    String caplast = "";
     final FirebaseAuth _ath = FirebaseAuth.instance;
     final User? user = _ath.currentUser;
     uid = user!.uid;
     print(uid);
-    TextEditingController messageController = new TextEditingController();
     double windowHeight = MediaQuery.of(context).size.height;
     double windowWidth = MediaQuery.of(context).size.width;
     //authentication serrivce proivde logout
@@ -82,7 +88,12 @@ class _HomePageState extends State<HomePage> {
                                     'pic/americanafrican.svg'));
                           }
                         }
-                        return Text("Loading");
+                        return Container(
+                            height: 10,
+                            child: Loading(
+                                indicator: LineScaleIndicator(),
+                                size: 50.0,
+                                color: notpurple));
                       },
                     ),
                   ),
@@ -117,8 +128,8 @@ class _HomePageState extends State<HomePage> {
                           var output = snapshot.data!.data();
                           String first = output!['firstName'];
                           String last = output['lastName'];
-                          String capfirst = first.capitalize();
-                          String caplast = last.capitalize();
+                          capfirst = first.capitalize();
+                          caplast = last.capitalize();
                           return Align(
                               alignment: Alignment.topLeft,
                               child: Stack(children: [
@@ -139,7 +150,12 @@ class _HomePageState extends State<HomePage> {
                                 )
                               ]));
                         }
-                        return Text("Loading");
+                        return Container(
+                            height: 10,
+                            child: Loading(
+                                indicator: LineScaleIndicator(),
+                                size: 50.0,
+                                color: notpurple));
                       },
                     ),
                   ),
@@ -154,21 +170,41 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          TextField(
-              controller: messageController,
-              decoration: InputDecoration(
-                  border: new OutlineInputBorder(
-                      borderSide: new BorderSide(color: Colors.teal)),
-                  hintText: "What do you have in mine")),
-          ElevatedButton(
-              onPressed: (() async {
-                DatabaseService(uid: uid)
-                    .updateMessage(messageController.text, DateTime.now());
-              }),
-              child: Text("Submit")),
+          OpenContainer(
+            transitionType: ContainerTransitionType.fadeThrough,
+            transitionDuration: Duration(milliseconds: 550),
+            closedBuilder: (BuildContext context, VoidCallback openContainer) {
+              return OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.only(bottom: 50, left: 15),
+                  minimumSize: Size(windowWidth - 20, 100),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  side: BorderSide(width: 2, color: purple),
+                ),
+                onPressed: openContainer,
+                child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "What do you have in mine ?",
+                      style: TextStyle(
+                        color: purple,
+                      ),
+                      textAlign: TextAlign.left,
+                    )),
+              );
+            },
+            openBuilder: (BuildContext context, _) {
+              return inputPage(
+                  uid: uid,
+                  first: capfirst,
+                  last: caplast,
+                  url: 'pic/americanafrican.svg');
+            },
+          ),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
                 stream: mess,
@@ -178,31 +214,67 @@ class _HomePageState extends State<HomePage> {
                     return Text("something wrong");
                   }
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return Container(
+                        height: 10,
+                        child: Loading(
+                            indicator: LineScaleIndicator(),
+                            size: 50.0,
+                            color: notpurple));
                   }
                   final data = snapshot.requireData;
-                  print(data.docs[0]['date']);
-                  print(data.docs[0]['message']);
-                  return ListView.builder(
-                      itemCount: data.size,
-                      itemBuilder: (contex, index) {
-                        String userinput = data.docs[index]['message'];
-                        DateTime dateinput = data.docs[index]['date'].toDate();
-                        String dateToString = dateinput.toString();
-                        return Column(children: <Widget>[
-                          Row(children: <Widget>[
-                            Container(
-                                width: 60,
-                                height: 60,
-                                child: SvgPicture.asset(
-                                    'pic/americanafrican.svg')),
-                            Text("$dateToString \n $userinput"),
-                            SizedBox(
-                              height: 120,
+
+                  if (data.size == 0) {
+                    return Container();
+                  } else {
+                    return ListView.builder(
+                        itemCount: data.size,
+                        itemBuilder: (contex, index) {
+                          String userinput =
+                              data.docs[data.size - (index + 1)]['message'];
+                          DateTime dateinput = data
+                              .docs[data.size - (index + 1)]['date']
+                              .toDate();
+                          String dayinput =
+                              DateFormat.yMMMd().format(dateinput).toString();
+                          String hoursinput =
+                              DateFormat.jm().format(dateinput).toString();
+                          return TimelineTile(
+                            afterLineStyle:
+                                LineStyle(color: notpurple, thickness: 2),
+                            indicatorStyle: IndicatorStyle(
+                              width: 50,
+                              height: 50,
+                              indicator:
+                                  SvgPicture.asset('pic/americanafrican.svg'),
+                              indicatorXY: 0,
+                              padding:
+                                  const EdgeInsets.only(top: 10, right: 10),
                             ),
-                          ]),
-                        ]);
-                      });
+                            alignment: TimelineAlign.start,
+                            endChild: Container(
+                                padding: const EdgeInsets.only(top: 20),
+                                constraints: const BoxConstraints(
+                                  minHeight: 150,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "$dayinput\n$hoursinput",
+                                      textAlign: TextAlign.start,
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text("$userinput")
+                                  ],
+                                )),
+                          );
+                        });
+                  }
                 }),
           ),
         ]),
