@@ -12,8 +12,8 @@ import 'package:animations/animations.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import 'package:loading/loading.dart';
 import 'package:intl/intl.dart';
-import 'package:inview_notifier_list/inview_notifier_list.dart';
 import 'package:rect_getter/rect_getter.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,6 +23,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final ValueNotifier<bool> _flag = ValueNotifier<bool>(false);
   @override
   Widget build(BuildContext context) {
     var listViewKey = RectGetter.createGlobalKey();
@@ -55,10 +56,19 @@ class _HomePageState extends State<HomePage> {
           transitionType: ContainerTransitionType.fadeThrough,
           transitionDuration: Duration(milliseconds: 400),
           closedBuilder: (BuildContext context, VoidCallback openContainer) {
-            return FloatingActionButton(
-                backgroundColor: purple,
-                onPressed: openContainer,
-                child: const FaIcon(FontAwesomeIcons.penNib));
+            return ValueListenableBuilder(
+              valueListenable: _flag,
+              builder: (BuildContext context, bool value, Widget? child) {
+                return AnimatedSwitcher(
+                    duration: Duration(milliseconds: 100),
+                    child: value
+                        ? FloatingActionButton(
+                            backgroundColor: purple,
+                            onPressed: openContainer,
+                            child: const FaIcon(FontAwesomeIcons.penNib))
+                        : SizedBox());
+              },
+            );
           },
           openBuilder: (BuildContext context, _) {
             return inputPage(
@@ -234,45 +244,59 @@ class _HomePageState extends State<HomePage> {
                                     .toString();
                               }
                               return index == 0
-                                  ? OpenContainer(
-                                      transitionType:
-                                          ContainerTransitionType.fadeThrough,
-                                      transitionDuration:
-                                          Duration(milliseconds: 400),
-                                      closedBuilder: (BuildContext context,
-                                          VoidCallback openContainer) {
-                                        return OutlinedButton(
-                                          style: OutlinedButton.styleFrom(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 50, left: 15),
-                                            minimumSize:
-                                                Size(windowWidth - 20, 100),
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            side: BorderSide(
-                                                width: 2, color: purple),
-                                          ),
-                                          onPressed: openContainer,
-                                          child: Align(
-                                              alignment: Alignment.topLeft,
-                                              child: Text(
-                                                "What do you have in mine ?",
-                                                style: TextStyle(
-                                                  color: purple,
-                                                ),
-                                                textAlign: TextAlign.left,
-                                              )),
-                                        );
+                                  ? VisibilityDetector(
+                                      key: Key("This open container"),
+                                      onVisibilityChanged: (
+                                        VisibilityInfo info,
+                                      ) {
+                                        if (info.visibleFraction > 0.2) {
+                                          _flag.value = false;
+                                        } else {
+                                          _flag.value = true;
+                                        }
+
+                                        print("${info.visibleFraction}");
                                       },
-                                      openBuilder: (BuildContext context, _) {
-                                        return inputPage(
-                                            uid: uid,
-                                            first: capfirst,
-                                            last: caplast,
-                                            url: 'pic/americanafrican.svg');
-                                      },
-                                    )
+                                      child: OpenContainer(
+                                        transitionType:
+                                            ContainerTransitionType.fadeThrough,
+                                        transitionDuration:
+                                            Duration(milliseconds: 400),
+                                        closedBuilder: (BuildContext context,
+                                            VoidCallback openContainer) {
+                                          return OutlinedButton(
+                                            style: OutlinedButton.styleFrom(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 50, left: 15),
+                                              minimumSize:
+                                                  Size(windowWidth - 20, 100),
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              side: BorderSide(
+                                                  width: 2, color: purple),
+                                            ),
+                                            onPressed: openContainer,
+                                            child: Align(
+                                                alignment: Alignment.topLeft,
+                                                child: Text(
+                                                  "What do you have in mine ?",
+                                                  style: TextStyle(
+                                                    color: purple,
+                                                  ),
+                                                  textAlign: TextAlign.left,
+                                                )),
+                                          );
+                                        },
+                                        openBuilder: (BuildContext context, _) {
+                                          return inputPage(
+                                              uid: uid,
+                                              first: capfirst,
+                                              last: caplast,
+                                              url: 'pic/americanafrican.svg');
+                                        },
+                                      ))
                                   : TimelineTile(
                                       afterLineStyle: LineStyle(
                                           color: notpurple, thickness: 2),
