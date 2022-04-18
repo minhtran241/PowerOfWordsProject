@@ -18,6 +18,13 @@ Power of Words is a cross-platform mobile application designed to help users mon
   <td><img src="pic/homepage.png" width="100%" height="40%"></td>
   <td><img src="pic/input.png" width="100%" height="40%"></td>
  </tr>
+ <tr>
+ <td><img src="pic/login.png" width="100%" height="40%"></td>
+ <td><img src="pic/reg.png" width="100%" height="40%"></td>
+ <td>
+ <img src="pic/finalize.png" width="100%" height="40%"></td>
+
+ </tr>
 </table>
 </p>
 
@@ -30,4 +37,3 @@ Power of Words is a cross-platform mobile application designed to help users mon
 [Calob Horton](https://github.com/hortocal) Testing and git manager
 
 [Holden Bristow](https://github.com/iirelu/) Assistance Frontend Development
-
