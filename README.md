@@ -90,6 +90,6 @@ Thanks to all contributors and their support:
 
 ## Copyright and license
 
-Code and documentation copyright 2021 the authors.<br>  <br>[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+Code and documentation copyright 2021 by creators.<br>  <br>[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <br><br>
 Enjoy :metal:
