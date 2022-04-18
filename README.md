@@ -25,8 +25,5 @@ Power of Words is a cross-platform mobile application designed to help users mon
    </tr>
 </table>
 
-
-
-
-
 </p>
+
