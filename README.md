@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://power-of-words.github.io/PowerOfWordsProject/">
-    <img src="pic/appICON.png" alt="Logo" width=72 height=72>
+    <img src="pic/appICON.png" alt="Logo" width=100 height=100>
   </a>
 
   <h3 align="center">Power of Words</h3>
