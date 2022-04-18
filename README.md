@@ -1,7 +1,7 @@
 <h2  align="center">Power of Words</h2>
 
 <p align="center">
-<img src="pic/appIcon.png" width="300" height="300"></p>
+<img src="pic/appICON.png" width="300" height="300"></p>
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
