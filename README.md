@@ -24,8 +24,6 @@
 - [Creators](#creators)
 - [Thanks](#thanks)
 - [Copyright and license](#copyright-and-license)
-<br>
-<br>
 
 
 ## Description
