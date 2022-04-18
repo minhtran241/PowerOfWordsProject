@@ -24,7 +24,10 @@ Power of Words is a cross-platform mobile application designed to help users mon
 <h2>Contribution</h2>
 
 [Dat Nguyen](https://github.com/superboo0311) Frontend and Backend Development, UI design
+
 [Aliah Lloyd](https://github.com/lloydali) Project manager , research sentimental
+
 [Calob Horton](https://github.com/hortocal) Testing and git manager
+
 [Holden Bristow](https://github.com/iirelu/) Assistance Frontend Development
 
