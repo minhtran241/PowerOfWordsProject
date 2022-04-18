@@ -14,9 +14,9 @@ Power of Words is a cross-platform mobile application designed to help users mon
 <p align="center">
 <table>
  <tr>
-  <td><img src="pic/getstart.png" width="50%" height="60%"></td>
-  <td><img src="pic/homepage.png" width="50%" height="60%"></td>
-  <td><img src="pic/input.png" width="50%" height="60%"></td>
+  <td><img src="pic/getstart.png" width="50%" height="40%"></td>
+  <td><img src="pic/homepage.png" width="50%" height="40%"></td>
+  <td><img src="pic/input.png" width="50%" height="40%"></td>
  </tr>
 </table>
 </p>
