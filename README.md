@@ -1,5 +1,5 @@
 <h2>Power of Words</h2>
-<h2>License</h2>
+
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
