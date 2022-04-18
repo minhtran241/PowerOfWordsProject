@@ -1,4 +1,4 @@
-<h2>Power of Words</h2>
+<h2  align="center">Power of Words</h2>
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -9,7 +9,7 @@ Power of Words is a cross-platform mobile application designed to help users mon
 </p>
 <p align="center">
 <img src="pic/getstart.png" width="300" height="600"></p>
-<h2>Demo Animation :</h2>
+<h2  align="center">Demo Animation :</h2>
 <p align="center">
  <table>
 <tr>
