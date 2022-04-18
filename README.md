@@ -82,7 +82,7 @@ Please read through our [contributing guidelines](). Included are directions for
 
 **Holden Bristow**
 
-- <https://github.com/iirelu/>
+- <https://github.com/HoldenBristow>
 
 ## Thanks
 
