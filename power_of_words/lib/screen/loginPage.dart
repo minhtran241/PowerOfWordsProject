@@ -2,6 +2,7 @@ import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:power_of_words/extension/string_extension.dart';
 import '../auth/authentication_service.dart';
 import '../model/user.dart';
 import 'package:provider/provider.dart';
@@ -46,8 +47,7 @@ class _LoginPageState extends State<LoginPage> {
     password = TextEditingController();
     emailController.addListener(() {
       if (emailController.text.isNotEmpty &&
-          emailController.text.contains("@") &&
-          emailController.text.contains(".")) {
+          emailController.text.checkEmail()) {
         setState(() {
           isEmailVaid = true;
         });
@@ -63,9 +63,7 @@ class _LoginPageState extends State<LoginPage> {
       });
     });
     email.addListener(() {
-      if (email.text.isNotEmpty &&
-          email.text.contains("@") &&
-          email.text.contains(".")) {
+      if (email.text.isNotEmpty && email.text.checkEmail()) {
         setState(() {
           isEmailSignUpVaid = true;
         });
