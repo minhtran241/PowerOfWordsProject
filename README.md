@@ -19,9 +19,9 @@ Power of Words is a cross-platform mobile application designed to help users mon
  </tr>
    <tr>
      <td>
-<img src="pic/rolein.gif" width="200" height="548"></td>
-     <td><img src="pic/input.gif" width="200" height="548"></td>
-     <td><img src="pic/roleback.gif" width="200" height="548"></td>
+<img src="pic/rolein.gif" width="300" height="648"></td>
+     <td><img src="pic/input.gif" width="300" height="648"></td>
+     <td><img src="pic/roleback.gif" width="300" height="648"></td>
    </tr>
 </table>
 
