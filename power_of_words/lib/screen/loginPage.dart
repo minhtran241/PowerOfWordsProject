@@ -5,6 +5,16 @@ import '../auth/authentication_service.dart';
 import '../model/user.dart';
 import 'package:provider/provider.dart';
 
+final TextEditingController emailController = TextEditingController();
+final TextEditingController passwordController = TextEditingController();
+final TextEditingController firstName = TextEditingController();
+final TextEditingController lastName = TextEditingController();
+final TextEditingController gender = TextEditingController();
+final TextEditingController race = TextEditingController();
+final _textController = TextEditingController();
+final TextEditingController email = TextEditingController();
+final TextEditingController password = TextEditingController();
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -12,7 +22,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   // Create a text controller  to retrieve the value
-  final _textController = TextEditingController();
   String title = "Welcome\nTo\nPower of Words";
   String second =
       "Your Number One Personal Journey.Where every one of your thoughts is cared for properly.\n\nJoin us to improve your mental wellbeing!";
@@ -38,13 +47,7 @@ class _LoginPageState extends State<LoginPage> {
   var notPurple = Color(0xFFD5D4EA);
   bool isKeyboardVisible = false;
 
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
   DateTime birthday = DateTime(1950 - 05 - 10);
-  TextEditingController firstName = TextEditingController();
-  TextEditingController lastName = TextEditingController();
-  TextEditingController gender = TextEditingController();
-  TextEditingController race = TextEditingController();
 
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(
@@ -70,8 +73,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final DateTime now = DateTime.now();
     final authService = Provider.of<AuthenticationService>(context);
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
+
     _loginYOffset = windowHeight;
     _RegisterYOffset = windowHeight;
     _nextYOffset = windowHeight;
@@ -242,7 +244,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ]),
               Container(
-                margin: EdgeInsets.only(top: 30, bottom: 100),
+                margin: EdgeInsets.only(top: 30),
                 child: Column(children: <Widget>[
                   InputBox(
                     flag: false,
@@ -256,14 +258,16 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ]),
               ),
+              SizedBox(height: 50),
               Flexible(
                   child: Column(children: <Widget>[
                 GestureDetector(
-                  onTap: () {
-                    authService.signIn(
-                        email: emailController.text,
-                        password: passwordController.text);
-                  },
+                  onTap: testConditionLogin(emailController.text.toString(),
+                          passwordController.text.toString())
+                      ? () => authService.signIn(
+                          email: emailController.text,
+                          password: passwordController.text)
+                      : null,
                   child: PrimaryButton(btnText: 'Login'),
                 ),
                 GestureDetector(
@@ -293,7 +297,7 @@ class _LoginPageState extends State<LoginPage> {
                   topLeft: Radius.circular(25), topRight: Radius.circular(25))),
           child: Column(children: <Widget>[
             Container(
-              margin: EdgeInsets.only(bottom: 160),
+              margin: EdgeInsets.only(bottom: 100),
               child: Column(
                 children: <Widget>[
                   InputBox(
@@ -306,6 +310,7 @@ class _LoginPageState extends State<LoginPage> {
                     btnText: "Password",
                     controller: password,
                   ),
+                  SizedBox(height: 30),
                   const Text('Birthday'),
                   CupertinoButton(
                     // Display a CupertinoDatePicker in date picker mode.
@@ -357,7 +362,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(bottom: 70),
+                margin: EdgeInsets.only(bottom: 30),
                 child: Column(
                   children: <Widget>[
                     InputBox(
@@ -534,4 +539,11 @@ class _PrimaryButtonState extends State<PrimaryButton> {
           ),
         )));
   }
+}
+
+bool testConditionLogin(String a, String b) {
+  if (a.contains('@') && a.contains('.') && b.isNotEmpty) {
+    return true;
+  }
+  return false;
 }
