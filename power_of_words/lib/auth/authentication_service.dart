@@ -36,6 +36,7 @@ class AuthenticationService {
     required String firstName,
     required String lastName,
     required int age,
+    required DateTime birthDay,
     required String race,
     required String gender,
   }) async {
@@ -44,7 +45,7 @@ class AuthenticationService {
           email: email, password: password);
       auth.User? user = credential.user;
       await DatabaseService(uid: user!.uid)
-          .updateUserData(firstName, lastName, age, gender, race);
+          .updateUserData(firstName, lastName, age, birthDay, gender, race);
       return _userFromFirebase(credential.user);
     } on Exception catch (e) {
       print(e);

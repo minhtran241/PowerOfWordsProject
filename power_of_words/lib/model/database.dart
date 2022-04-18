@@ -9,11 +9,12 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('Message');
   //to add user information into the firestore
   Future updateUserData(String firstName, String lastName, int age,
-      String gender, String race) async {
+      DateTime birthday, String gender, String race) async {
     return await userInfomation.doc(uid).set({
       'firstName': firstName,
       'lastName': lastName,
       'age': age,
+      'birthday': birthday,
       'gender': gender,
       'race': race,
     });
