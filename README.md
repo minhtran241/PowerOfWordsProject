@@ -11,10 +11,22 @@ Power of Words is a cross-platform mobile application designed to help users mon
 <img src="pic/getstart.png" width="300" height="600"></p>
 <h2>Demo Animation :</h2>
 <p align="center">
-<strong>Going Foward</strong>
-<img src="pic/rolein.gif" width="300" height="648">
-<strong>Going Backward</strong>
-<img src="pic/roleback.gif" width="300" height="648">
-<strong>Input Text</strong>
-<img src="pic/input.gif" width="300" height="648">
+ <table>
+<tr>
+  <th><strong>Going Foward</strong></th>
+    <th><strong>Input Text</strong></th>  
+    <th><strong>Going Backward</strong></th>  
+ </tr>
+   <tr>
+     <td>
+<img src="pic/rolein.gif" width="300" height="648"></td>
+     <td><img src="pic/input.gif" width="300" height="648"></td>
+     <td><img src="pic/roleback.gif" width="300" height="648"></td>
+   </tr>
+</table>
+
+
+
+
+
 </p>
