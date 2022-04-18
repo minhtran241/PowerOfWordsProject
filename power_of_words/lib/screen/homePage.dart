@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:loading/indicator/line_scale_indicator.dart';
 import 'package:power_of_words/auth/authentication_service.dart';
 import 'package:power_of_words/screen/inputPage.dart';
+import 'package:power_of_words/screen/loginPage.dart';
 import 'package:provider/provider.dart';
 import '../extension/string_extension.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -32,6 +33,7 @@ class _HomePageState extends State<HomePage> {
     var purple = Color(0xFF3B1B6A);
     var notpurple = Color(0XFFD5D4EA);
     String uid;
+    String url = "";
     String capfirst = "";
     String caplast = "";
     final FirebaseAuth _ath = FirebaseAuth.instance;
@@ -75,10 +77,7 @@ class _HomePageState extends State<HomePage> {
           },
           openBuilder: (BuildContext context, _) {
             return inputPage(
-                uid: uid,
-                first: capfirst,
-                last: caplast,
-                url: 'pic/americanafrican.svg');
+                uid: uid, first: capfirst, last: caplast, url: url);
           },
         ),
         body: SafeArea(
@@ -108,15 +107,30 @@ class _HomePageState extends State<HomePage> {
                               String gen = output!['gender'];
                               String race = output['race'];
                               int age = output['age'];
-                              if (age > 40) {
+                              if (gen == 'Inclusive Male') {
+                                url = 'pic/inclusivemale.svg';
+                              } else if (gen == 'Inclusive Female') {
+                                url = 'pic/inclusivefemale.svg';
+                              } else if (race == 'Middle Eastern' &&
+                                  gen.toLowerCase() == "male") {
+                                url = 'pic/middleman.svg';
+                              } else if (age >= 40 &&
+                                  gen != 'Inclusive Male' &&
+                                  gen != 'Inclusive Female' &&
+                                  (race == 'Middle Eastern' &&
+                                      gen.toLowerCase() == "male")) {
+                                url =
+                                    'pic/${race.toLowerCase()}${gen.toLowerCase()}40.svg';
                               } else {
-                                return Container(
-                                    width: 60,
-                                    height: 60,
-                                    child: SvgPicture.asset(
-                                        'pic/americanafrican.svg'));
+                                url =
+                                    'pic/${race.toLowerCase()}${gen.toLowerCase()}20.svg';
                               }
+                              return Container(
+                                  width: 60,
+                                  height: 60,
+                                  child: SvgPicture.asset(url));
                             }
+
                             return Container(
                                 height: 10,
                                 child: Loading(
@@ -272,7 +286,7 @@ class _HomePageState extends State<HomePage> {
                                         uid: uid,
                                         first: capfirst,
                                         last: caplast,
-                                        url: 'pic/americanafrican.svg');
+                                        url: url);
                                   },
                                 )),
                             SizedBox(
@@ -355,7 +369,7 @@ class _HomePageState extends State<HomePage> {
                                               uid: uid,
                                               first: capfirst,
                                               last: caplast,
-                                              url: 'pic/americanafrican.svg');
+                                              url: url);
                                         },
                                       ))
                                   : TimelineTile(
@@ -364,8 +378,7 @@ class _HomePageState extends State<HomePage> {
                                       indicatorStyle: IndicatorStyle(
                                         width: 50,
                                         height: 50,
-                                        indicator: SvgPicture.asset(
-                                            'pic/americanafrican.svg'),
+                                        indicator: SvgPicture.asset(url),
                                         indicatorXY: 0,
                                         padding: const EdgeInsets.only(
                                             top: 30, right: 10),
