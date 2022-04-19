@@ -21,6 +21,10 @@
     ·
     <a href="https://github.com/Power-Of-Words/PowerOfWordsProject/issues/new">Request feature</a>
   </p>
+<<<<<<< HEAD
+=======
+
+>>>>>>> dae1919e ( readme update)
 
 ## Table of contents
 - [Description](#description)
