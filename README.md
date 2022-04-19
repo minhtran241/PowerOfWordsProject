@@ -4,16 +4,23 @@
   </a>
 
   <h3 align="center">Power of Words</h3>
-
   <p align="center">
     Personal Journey made with Flutter and Dart
     <br>
     <br>
+   <img src="https://img.shields.io/badge/dart-%230175C2.svg?style=flat&logo=dart&logoColor=white">
+<img src="https://img.shields.io/badge/Flutter-%2302569B.svg?style=Flat&logo=Flutter&logoColor=white">
+<img src="https://img.shields.io/badge/firebase-%23039BE5.svg?style=Flat&logo=firebase">
+    </p>
+
+
+
+  <p align="center">
+  <br>
     <a href="https://github.com/Power-Of-Words/PowerOfWordsProject/issues/new">Report bug</a>
     ·
     <a href="https://github.com/Power-Of-Words/PowerOfWordsProject/issues/new">Request feature</a>
   </p>
-</p>
 
 ## Table of contents
 - [Description](#description)
